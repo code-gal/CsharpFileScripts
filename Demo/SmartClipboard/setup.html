@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartClipboard - 初始设置</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+        .toggle-checkbox:checked { background-color: #3b82f6; }
+        .toggle-checkbox:checked::after { transform: translateX(100%); }
+        .toggle {
+            width: 44px;
+            height: 24px;
+            background: #cbd5e0;
+            border-radius: 12px;
+            position: relative;
+            cursor: pointer;
+        }
+        .toggle::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.2s;
+        }
+        .toggle.active {
+            background: #3b82f6;
+        }
+        .toggle.active::after {
+            transform: translateX(20px);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <div class="card rounded-2xl shadow-2xl max-w-2xl w-full p-8">
+        <h1 class="text-4xl font-bold text-gray-800 mb-2 text-center">📋 SmartClipboard</h1>
+        <p class="text-gray-600 text-center mb-8">欢迎！首次运行需要配置一些设置</p>
+        
+        <form id="setupForm" class="space-y-6">
+            <div class="border-2 border-gray-200 rounded-lg p-4">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-bold text-gray-700">🤖 AI 智能分析</h2>
+                    <div class="toggle" id="aiToggle" onclick="toggleAI()"></div>
+                </div>
+                
+                <div id="aiConfig" class="space-y-3 hidden">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">AI 服务商</label>
+                        <select id="aiProvider" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" onchange="updateAIDefaults()">
+                            <option value="openai">OpenAI (gpt-4o-mini)</option>
+                            <option value="deepseek">DeepSeek</option>
+                            <option value="ollama">Ollama (本地)</option>
+                            <option value="custom">自定义 API</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">API 地址</label>
+                        <input type="text" id="aiApiUrl" value="https://api.openai.com/v1" 
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">API Key (可选)</label>
+                        <input type="password" id="aiApiKey" placeholder="sk-..." 
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <p class="text-xs text-gray-500 mt-1">使用 Ollama 本地模型可留空</p>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">模型名称</label>
+                        <input type="text" id="aiModel" value="gpt-4o-mini" 
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-2 border-gray-200 rounded-lg p-4">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-bold text-gray-700">💬 Matrix 同步</h2>
+                    <div class="toggle" id="matrixToggle" onclick="toggleMatrix()"></div>
+                </div>
+                
+                <div id="matrixConfig" class="space-y-3 hidden">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">服务器地址</label>
+                        <input type="text" id="matrixHomeserver" value="https://matrix.org" 
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">用户 ID</label>
+                        <input type="text" id="matrixUserId" placeholder="@user:matrix.org" 
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Access Token</label>
+                        <input type="password" id="matrixAccessToken" placeholder="syt_..." 
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <p class="text-xs text-gray-500 mt-1">在 Element 设置中获取</p>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">房间 ID</label>
+                        <input type="text" id="matrixRoomId" placeholder="!xxxxx:matrix.org" 
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-2 border-gray-200 rounded-lg p-4">
+                <h2 class="text-xl font-bold text-gray-700 mb-4">⚙️ 其他设置</h2>
+                <label class="flex items-center space-x-2">
+                    <input type="checkbox" id="filterSensitive" class="w-4 h-4 text-blue-600 rounded">
+                    <span class="text-gray-700">启用敏感信息过滤（密码、密钥等）</span>
+                </label>
+            </div>
+            
+            <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-3 px-6 rounded-lg transition transform hover:scale-105">
+                💾 保存设置并开始使用
+            </button>
+            
+            <p class="text-center text-sm text-gray-500">
+                配置文件保存在: %APPDATA%\SmartClipboard\config.json<br>
+                之后可在托盘菜单中修改
+            </p>
+        </form>
+    </div>
+    
+    <script>
+        let aiEnabled = false;
+        let matrixEnabled = false;
+        
+        function toggleAI() {
+            aiEnabled = !aiEnabled;
+            document.getElementById('aiToggle').classList.toggle('active');
+            document.getElementById('aiConfig').classList.toggle('hidden');
+        }
+        
+        function toggleMatrix() {
+            matrixEnabled = !matrixEnabled;
+            document.getElementById('matrixToggle').classList.toggle('active');
+            document.getElementById('matrixConfig').classList.toggle('hidden');
+        }
+        
+        function updateAIDefaults() {
+            const provider = document.getElementById('aiProvider').value;
+            const urlInput = document.getElementById('aiApiUrl');
+            const modelInput = document.getElementById('aiModel');
+            
+            switch(provider) {
+                case 'openai':
+                    urlInput.value = 'https://api.openai.com/v1';
+                    modelInput.value = 'gpt-4o-mini';
+                    break;
+                case 'deepseek':
+                    urlInput.value = 'https://api.deepseek.com/v1';
+                    modelInput.value = 'deepseek-chat';
+                    break;
+                case 'ollama':
+                    urlInput.value = 'http://localhost:11434';
+                    modelInput.value = 'qwen2.5:3b';
+                    break;
+            }
+        }
+        
+        document.getElementById('setupForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const config = {
+                enableAI: aiEnabled,
+                aiProvider: document.getElementById('aiProvider').value,
+                aiApiUrl: document.getElementById('aiApiUrl').value,
+                aiApiKey: document.getElementById('aiApiKey').value,
+                aiModel: document.getElementById('aiModel').value,
+                enableMatrix: matrixEnabled,
+                matrixHomeserver: document.getElementById('matrixHomeserver').value,
+                matrixUserId: document.getElementById('matrixUserId').value,
+                matrixAccessToken: document.getElementById('matrixAccessToken').value,
+                matrixRoomId: document.getElementById('matrixRoomId').value,
+                filterSensitive: document.getElementById('filterSensitive').checked
+            };
+            
+            try {
+                const response = await fetch('/api/setup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(config)
+                });
+                
+                if (response.ok) {
+                    alert('✅ 配置保存成功！\n\n程序已开始在后台监听剪贴板。\n可以通过系统托盘图标管理。');
+                    window.location.reload();
+                } else {
+                    alert('❌ 保存失败，请检查配置');
+                }
+            } catch (err) {
+                alert('❌ 保存失败: ' + err.message);
+            }
+        });
+    </script>
+</body>
+</html>
