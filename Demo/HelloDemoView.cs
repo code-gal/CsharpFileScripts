@@ -17,7 +17,11 @@ var app = builder.Build();
 app.MapGet("/", () => Results.Content(TaskHub.HTML_CONTENT, "text/html"));
 
 // API 路由
-app.MapGet("/api/tasks", () => Results.Json(TaskManager.GetAllTasks()));
+// Use Results.Ok to avoid RequiresUnreferencedCode/RequiresDynamicCode warnings
+// that arise from Results.Json overloads which rely on reflection/runtime
+// JSON serialization. Let the framework's formatters handle serialization
+// to be more trimming/AOT friendly.
+app.MapGet("/api/tasks", () => Results.Ok(TaskManager.GetAllTasks()));
 
 app.MapPost("/api/tasks", async (HttpContext context) =>
 {
