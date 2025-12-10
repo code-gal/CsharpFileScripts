@@ -1,0 +1,16 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "Port": 5000,
+  "Host": "localhost",
+  "WebRoot": "www",
+  "Features": {
+    "DirectoryBrowsing": true,
+    "DetailedErrors": true
+  }
+}

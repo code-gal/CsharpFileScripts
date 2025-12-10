@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebDemo Web - 欢迎页面</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 50px;
+            max-width: 800px;
+            width: 100%;
+            animation: fadeIn 0.6s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        h1 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            text-align: center;
+        }
+        
+        .subtitle {
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.2em;
+        }
+        
+        .info-box {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .info-box h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .info-box p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .feature-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+        
+        .feature-list li {
+            padding: 10px;
+            margin: 5px 0;
+            background: #f0f0f0;
+            border-radius: 5px;
+            transition: transform 0.2s;
+        }
+        
+        .feature-list li:hover {
+            transform: translateX(5px);
+            background: #e8e8e8;
+        }
+        
+        .feature-list li::before {
+            content: "✓ ";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        
+        .btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #999;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌐 WebDemo Web</h1>
+        <p class="subtitle">基于文件的 C# Web 服务器</p>
+        
+        <div class="info-box">
+            <h2>欢迎!</h2>
+            <p>这是一个使用单文件 C# 程序构建的轻量级 Web 服务器。你可以在 <code>www</code> 文件夹中放置你的 HTML、CSS、JavaScript 等静态资源。</p>
+        </div>
+        
+        <div class="info-box">
+            <h2>功能特性</h2>
+            <ul class="feature-list">
+                <li>静态文件托管 (HTML, CSS, JS, 图片等)</li>
+                <li>自动识别默认首页 (index.html, index.htm, default.html)</li>
+                <li>目录浏览功能 (/browse)</li>
+                <li>健康检查端点 (/health)</li>
+                <li>友好的 404 错误页面</li>
+                <li>支持所有常见 MIME 类型</li>
+            </ul>
+        </div>
+        
+        <div class="info-box">
+            <h2>快速开始</h2>
+            <p><strong>运行命令:</strong></p>
+            <pre style="background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow-x: auto;">dotnet run WebDemo.cs</pre>
+            <p style="margin-top: 10px;"><strong>或者发布为独立可执行文件:</strong></p>
+            <pre style="background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow-x: auto;">dotnet publish WebDemo.cs -o ./publish</pre>
+        </div>
+        
+        <div class="links">
+            <a href="/example.html" class="btn">📄 示例页面</a>
+            <a href="/browse" class="btn">📁 浏览文件</a>
+            <a href="/health" class="btn btn-secondary">💚 健康检查</a>
+        </div>
+        
+        <footer>
+            <p>Powered by .NET & ASP.NET Core | 基于文件的 C# 程序</p>
+            <p>当前时间: <span id="time"></span></p>
+        </footer>
+    </div>
+    
+    <script>
+        // 显示当前时间
+        function updateTime() {
+            document.getElementById('time').textContent = new Date().toLocaleString('zh-CN');
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>

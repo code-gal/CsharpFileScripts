@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>示例页面 - WebDemo</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 id="greeting">欢迎!</h1>
+        
+        <div class="card">
+            <h2>📄 示例页面</h2>
+            <p>这是一个示例页面,展示了如何使用 CSS 和 JavaScript。</p>
+            <p>当前时间: <span id="current-time"></span></p>
+        </div>
+        
+        <div class="card">
+            <h2>🎨 CSS 样式</h2>
+            <p>这个页面使用了外部 CSS 文件 <code>css/style.css</code></p>
+            <button class="btn" onclick="showMessage('按钮点击成功!')">点击测试</button>
+        </div>
+        
+        <div class="card">
+            <h2>📚 资源链接</h2>
+            <ul>
+                <li><a href="/" class="btn">返回首页</a></li>
+                <li style="margin-top: 10px;"><a href="/browse" class="btn">浏览文件</a></li>
+                <li style="margin-top: 10px;"><a href="/health" class="btn">健康检查</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <script src="/js/app.js"></script>
+    <script>
+        // 更新当前时间
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('current-time').textContent = now.toLocaleString('zh-CN');
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>
