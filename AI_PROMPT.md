@@ -12,7 +12,7 @@ I need you to write a **File-based C# program**.
 
 1.  **No Project File**: The entire application lives in a single `.cs` file. Do NOT generate a `.csproj` file.
 2.  **Directives (The Magic Part)**:
-    In .NET 10, we can define project metadata directly in the C# file using special comments starting with `#:` or `#!`.
+    In .NET 10, we can define project metadata directly in the C# file using C# preprocessor directives with `#:` or `#!`.
     *   **Must be at the top**: These lines must appear before any code (including `using` statements).
     *   **`#:package <Name>@<Version>`**: Replaces `<PackageReference>`. Use this to add NuGet packages.
         *   *Example*: `#:package Newtonsoft.Json@13.0.3`
@@ -36,22 +36,15 @@ I need you to write a **File-based C# program**.
 ```csharp
 #!/usr/bin/env dotnet
 #:sdk Microsoft.NET.Sdk.Web
-#:package System.CommandLine@2.0.0-beta4.22272.1
-#:property TargetFramework=net10.0
+#:property PublishAot=false
 
-using System.CommandLine;
-using Microsoft.AspNetCore.Builder;
-
-// --- Your Main Logic Here ---
 var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
+builder.WebHost.UseUrls("http://localhost:8500");
 
-app.MapGet("/", () => "Hello from a single file!");
+var app = builder.Build();
+app.MapGet("/", (string? query) => $"hello,{query ?? ""}");
 
 app.Run();
-
-// --- Definitions (Classes/Records) Here ---
-record MyData(string Name);
 ```
 
 **Task:**
