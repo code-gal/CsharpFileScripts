@@ -23,7 +23,7 @@
 
 ### 4. 桌面自动化 RPA (HelloWindowsNotePad)
 
-<video src="(https://github.com/user-attachments/assets/835569d0-f64b-4536-9019-a32a5522aa5a" controls width="100%" height="auto"></video>
+<video width="630" height="300" src="https://github.com/user-attachments/assets/835569d0-f64b-4536-9019-a32a5522aa5a" controls></video>
 
 演示如何调用 Windows 桌面 API，模拟用户键盘和鼠标操作（如自动操作记事本），实现轻量级的 RPA（机器人流程自动化）功能。
 
