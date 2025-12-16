@@ -2,6 +2,10 @@
 
 这是一个基于文件的 C# 程序（File-based apps）的 Demo 演示和有用脚本收集项目。旨在探索 C# 14 & .NET 10 这一特性的创新应用。
 
+## 技术简介
+
+**基于文件的应用** 是 .NET 10 引入的一种简化模式，允许程序包含在单个 `*.cs` 文件中，无需 `.csproj` 项目文件即可直接编译运行。它支持完整的 C# 功能，包括顶级语句、NuGet 包引用（通过 `#:package`）和 SDK 指定（通过 `#:sdk`）。
+
 ## 🌟 Demo 案例展示
 
 本项目包含多个展示单文件应用潜力的创新案例：
@@ -18,16 +22,12 @@
 一个单页、可交互的漂亮简历页面。无需部署复杂的网站，运行脚本即可展示个人主页。
 
 ### 4. 桌面自动化 RPA (HelloWindowsNotePad)
-[演示视频](images/HelloWindowsNotePad.mp4)
+![演示视频](images/HelloWindowsNotePad.mp4)
 演示如何调用 Windows 桌面 API，模拟用户键盘和鼠标操作（如自动操作记事本），实现轻量级的 RPA（机器人流程自动化）功能。
 
 ### 5. 智能工具 (SmartMusicOrganizer)
 ![SmartMusicOrganizer](images/SmartMusicOrganizer.png)
 一个实用的控制台应用，用于自动整理和分类音乐文件，展示了其作为系统管理工具的便捷性。
-
-## 技术简介
-
-**基于文件的应用** 是 .NET 10 引入的一种简化模式，允许程序包含在单个 `*.cs` 文件中，无需 `.csproj` 项目文件即可直接编译运行。它支持完整的 C# 功能，包括顶级语句、NuGet 包引用（通过 `#:package`）和 SDK 指定（通过 `#:sdk`）。
 
 ## 如何使用
 
