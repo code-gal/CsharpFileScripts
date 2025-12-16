@@ -22,7 +22,9 @@
 一个单页、可交互的漂亮简历页面。无需部署复杂的网站，运行脚本即可展示个人主页。
 
 ### 4. 桌面自动化 RPA (HelloWindowsNotePad)
-![演示视频](images/HelloWindowsNotePad.mp4)
+
+![演示视频](https://github.com/user-attachments/assets/835569d0-f64b-4536-9019-a32a5522aa5a)
+
 演示如何调用 Windows 桌面 API，模拟用户键盘和鼠标操作（如自动操作记事本），实现轻量级的 RPA（机器人流程自动化）功能。
 
 ### 5. 智能工具 (SmartMusicOrganizer)
